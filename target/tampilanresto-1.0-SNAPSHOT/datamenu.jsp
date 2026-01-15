@@ -8,6 +8,7 @@
         return;
     }
 %>
+
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -15,24 +16,109 @@
         <title>Manajemen Menu | Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             :root {
                 --gold: #c5a059;
-                --dark: #0f1116;
+                --dark-bg: #0f1116;
+                --soft-dark: #1a1d24;
             }
             body {
-                background-color: #f4f7f6;
+                background-color: #f8f9fa;
             }
-            .btn-gold {
-                background-color: var(--gold);
+            .active-gold {
+                background-color: var(--gold) !important;
+                color: white !important;
+                font-weight: 600;
+                box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+            }
+            .hover-effect:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--gold) !important;
+            }
+
+            .main-content {
+                margin-left: 260px;
+                padding: 30px;
+            }
+            .card {
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+
+            /* Menu Styling */
+            .menu-card {
+                transition: all 0.3s ease;
+                cursor: pointer;
+                border: 1px solid transparent;
+            }
+            .menu-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--gold);
+            }
+            .btn-add {
+                background: var(--dark-bg);
                 color: white;
                 border-radius: 50px;
+                font-size: 0.8rem;
             }
-            .table-container {
+            .btn-add:hover {
+                background: var(--gold);
+                color: white;
+            }
+
+            /* Cart Styling */
+            .cart-container {
+                position: sticky;
+                top: 20px;
                 background: white;
-                border-radius: 15px;
-                padding: 25px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                height: calc(100vh - 40px);
+                display: flex;
+                flex-column: column;
+            }
+            .cart-header {
+                border-bottom: 2px solid #f1f1f1;
+                padding-bottom: 15px;
+            }
+            .cart-items-list {
+                flex-grow: 1;
+                overflow-y: auto;
+                padding-right: 5px;
+            }
+
+            .qty-btn {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                border: 1px solid #ddd;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: 0.2s;
+                font-weight: bold;
+            }
+            .qty-btn:hover {
+                background: var(--gold);
+                color: white;
+                border-color: var(--gold);
+            }
+
+            .total-section {
+                background: var(--dark-bg);
+                color: white;
+                border-radius: 12px;
+                padding: 20px;
+                margin-top: 15px;
+            }
+            .text-gold {
+                color: var(--gold);
+            }
+            .btn-gold {
+                background: var(--gold);
+                border: none;
+                color: white;
             }
         </style>
     </head>
@@ -78,10 +164,7 @@
                                         onclick="editMenu('<%= m.getId()%>', '<%= m.getNama()%>', '<%= m.getHarga()%>', '<%= m.getKategori()%>', '<%= m.getFoto()%>')">
                                     <i class="bi bi-pencil"></i>
                                 </button>
-                                <a href="MenuServlet?action=delete&id=<%= m.getId()%>" 
-                                   onclick="return confirm('Yakin hapus?')" class="btn btn-sm btn-danger rounded-pill px-3">
-                                    <i class="bi bi-trash"></i>
-                                </a>
+                                <a href="MenuServlet?action=delete&id=<%= m.getId()%>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Yakin hapus?')" style="border-radius: 50%; width: 32px; height: 32px; padding: 0; line-height: 30px; text-align: center;"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                         <% }%>
@@ -132,26 +215,26 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-                                       const modal = new bootstrap.Modal(document.getElementById('modalTambah'));
+                                    const modal = new bootstrap.Modal(document.getElementById('modalTambah'));
 
-                                       function tambahMenu() {
-                                           document.getElementById('modalTitle').innerText = "Tambah Menu Baru";
-                                           document.getElementById('menuId').value = "";
-                                           document.getElementById('menuOldFoto').value = "";
-                                           document.getElementById('menuNama').value = "";
-                                           document.getElementById('menuHarga').value = "";
-                                           modal.show();
-                                       }
+                                    function tambahMenu() {
+                                        document.getElementById('modalTitle').innerText = "Tambah Menu Baru";
+                                        document.getElementById('menuId').value = "";
+                                        document.getElementById('menuOldFoto').value = "";
+                                        document.getElementById('menuNama').value = "";
+                                        document.getElementById('menuHarga').value = "";
+                                        modal.show();
+                                    }
 
-                                       function editMenu(id, nama, harga, kategori, foto) {
-                                           document.getElementById('modalTitle').innerText = "Edit Menu";
-                                           document.getElementById('menuId').value = id;
-                                           document.getElementById('menuNama').value = nama;
-                                           document.getElementById('menuHarga').value = harga;
-                                           document.getElementById('menuKategori').value = kategori;
-                                           document.getElementById('menuOldFoto').value = foto;
-                                           modal.show();
-                                       }
+                                    function editMenu(id, nama, harga, kategori, foto) {
+                                        document.getElementById('modalTitle').innerText = "Edit Menu";
+                                        document.getElementById('menuId').value = id;
+                                        document.getElementById('menuNama').value = nama;
+                                        document.getElementById('menuHarga').value = harga;
+                                        document.getElementById('menuKategori').value = kategori;
+                                        document.getElementById('menuOldFoto').value = foto;
+                                        modal.show();
+                                    }
         </script>
     </body>
 </html>

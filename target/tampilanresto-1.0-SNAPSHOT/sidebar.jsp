@@ -8,8 +8,8 @@
      style="width: 260px; height: 100vh; position: fixed; background: #0f1116; border-right: 1px solid #2d2d2d; z-index: 1000;">
 
     <div class="text-center mb-4 mt-2">
-        <h3 style="font-family: 'Playfair Display', serif; color: #c5a059; letter-spacing: 2px;">THE GRAND</h3>
-        <p class="small text-uppercase opacity-50 text-white" style="font-size: 10px; letter-spacing: 3px;">Resto & Lounge</p>
+        <h3 style="font-family: 'Playfair Display', serif; color: #c5a059; letter-spacing: 2px;">Ngopi.In</h3>
+        <p class="small text-uppercase opacity-50 text-white" style="font-size: 10px; letter-spacing: 3px;">Authentic Indonesian Coffee</p>
     </div>
 
     <ul class="nav nav-pills flex-column mb-auto gap-1">
@@ -20,7 +20,7 @@
         </li>
         <% if ("admin".equalsIgnoreCase(userRole)) {%>
         <li>
-            <a href="datamenu.jsp" class="nav-link text-white py-3 px-4 d-flex align-items-center rounded-3 mb-1 <%= currentPath.contains("data-menu") ? "active-gold" : "hover-effect"%>">
+            <a href="datamenu.jsp" class="nav-link text-white py-3 px-4 d-flex align-items-center rounded-3 mb-1 <%= currentPath.contains("datamenu") ? "active-gold" : "hover-effect"%>">
                 <i class="bi bi-journal-richtext me-3"></i> Manajemen Menu
             </a>
         </li>

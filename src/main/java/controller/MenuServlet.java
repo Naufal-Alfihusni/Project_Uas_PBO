@@ -17,9 +17,17 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        // Di bagian doGet
         if ("delete".equals(action)) {
             int id = Integer.parseInt(request.getParameter("id"));
-            new MenuDAO().deleteMenu(id);
+            boolean sukses = new MenuDAO().deleteMenu(id);
+
+            if (!sukses) {
+                // Simpan pesan error di session agar bisa tampil setelah redirect
+                request.getSession().setAttribute("errorMsg", "Gagal menghapus! Menu ini sudah pernah dipesan dan tercatat di transaksi.");
+            } else {
+                request.getSession().setAttribute("successMsg", "Menu berhasil dihapus.");
+            }
         }
         response.sendRedirect("datamenu.jsp");
     }

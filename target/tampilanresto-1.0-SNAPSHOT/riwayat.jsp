@@ -20,7 +20,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Riwayat Transaksi | THE GRAND</title>
+        <title>Riwayat Transaksi | Ngopi.In</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -80,6 +80,7 @@
                                 <tr>
                                     <th class="py-3 px-4">No Transaksi</th>
                                     <th>Tanggal & Waktu</th>
+                                    <th>Metode Pembayaran</th>
                                     <th>Total Pembayaran</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -102,6 +103,11 @@
                                     <td>
                                         <i class="bi bi-calendar3 me-2 text-muted"></i>
                                         <%= t.getTanggal()%>
+                                    </td>
+                                    <td>
+                                        <span class="badge <%= t.getMetodePembayaran().equalsIgnoreCase("QRIS") ? "bg-info" : "bg-success"%>">
+                                            <%= t.getMetodePembayaran()%>
+                                        </span>
                                     </td>
                                     <td class="fw-bold" style="color: var(--soft-dark);">
                                         Rp <%= String.format("%,.0f", t.getTotalAkhir())%>

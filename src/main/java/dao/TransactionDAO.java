@@ -24,10 +24,11 @@ public class TransactionDAO {
             conn.setAutoCommit(false); // Mulai transaksi manual
 
             // 1. Insert ke tabel transactions
-            String sqlTrans = "INSERT INTO transactions (total_akhir, user_id) VALUES (?, ?) RETURNING id";
+            String sqlTrans = "INSERT INTO transactions (total_akhir, user_id, metode_pembayaran) VALUES (?, ?, ?) RETURNING id";
             PreparedStatement psTrans = conn.prepareStatement(sqlTrans);
             psTrans.setDouble(1, trans.getTotalAkhir());
             psTrans.setInt(2, trans.getUserId());
+            psTrans.setString(3, trans.getMetodePembayaran());
 
             ResultSet rs = psTrans.executeQuery();
             if (rs.next()) {
@@ -70,9 +71,35 @@ public class TransactionDAO {
         }
     }
 
+    public double getTotalPendapatan() {
+        double total = 0;
+        String sql = "SELECT SUM(total_akhir) FROM transactions";
+        try (Connection conn = KoneksiDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                total = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+
+    public int getTotalTransaksi() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM transactions";
+        try (Connection conn = KoneksiDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
     // Method untuk mengambil daftar transaksi (misal 50 terakhir agar tidak berat)
     // Method untuk mengambil daftar transaksi
     // Method untuk mengambil detail item berdasarkan ID Transaksi
+
     public List<TransactionItem> getTransactionItems(int transId) {
         List<TransactionItem> list = new ArrayList<>();
 
@@ -112,9 +139,7 @@ public class TransactionDAO {
 
     public List<Transaction> getAllTransactions() {
         List<Transaction> list = new ArrayList<>();
-
-        // Query mengambil data transaksi diurutkan dari yang terbaru (DESC)
-        String sql = "SELECT * FROM transactions ORDER BY id DESC";
+        String sql = "SELECT * FROM transactions ORDER BY id DESC"; // Ambil semua kolom
 
         try (Connection conn = KoneksiDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
@@ -123,17 +148,44 @@ public class TransactionDAO {
                 t.setId(rs.getInt("id"));
                 t.setTotalAkhir(rs.getDouble("total_akhir"));
                 t.setUserId(rs.getInt("user_id"));
+                t.setTanggal(rs.getTimestamp("tanggal"));
 
-                // Pastikan kolom tanggal ada di database. 
-                // Jika nama kolomnya 'created_at' atau lainnya, sesuaikan di sini.
-                try {
-                    t.setTanggal(rs.getTimestamp("tanggal"));
-                } catch (Exception e) {
-                    // Jika kolom tanggal error/tidak ada, abaikan dulu agar tidak crash
-                    System.out.println("Warning: Kolom tanggal tidak terbaca/kosong");
-                }
+                // AMBIL KOLOM METODE PEMBAYARAN
+                String metode = rs.getString("metode_pembayaran");
+                t.setMetodePembayaran(metode != null ? metode : "CASH");
 
                 list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    // Tambahkan method ini di dalam class TransactionDAO
+
+    // Masukkan method ini ke dalam class TransactionDAO
+    public List<Transaction> getRecentTransactions(int limit) {
+        List<Transaction> list = new ArrayList<>();
+        String sql = "SELECT * FROM transactions ORDER BY id DESC LIMIT ?";
+
+        try (Connection conn = KoneksiDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, limit);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Transaction t = new Transaction();
+                    t.setId(rs.getInt("id"));
+                    t.setTotalAkhir(rs.getDouble("total_akhir"));
+                    t.setUserId(rs.getInt("user_id"));
+                    t.setTanggal(rs.getTimestamp("tanggal"));
+
+                    // TAMBAHKAN INI:
+                    String metode = rs.getString("metode_pembayaran");
+                    t.setMetodePembayaran(metode != null ? metode : "CASH");
+
+                    list.add(t);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

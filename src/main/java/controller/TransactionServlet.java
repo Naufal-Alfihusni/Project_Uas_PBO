@@ -34,6 +34,12 @@ public class TransactionServlet extends HttpServlet {
         String[] menuIds = request.getParameterValues("menu_id[]");
         String[] quantities = request.getParameterValues("qty[]");
         String[] subtotals = request.getParameterValues("subtotal[]");
+        String metodePembayaran = request.getParameter("metode_pembayaran");
+
+        // Jaga-jaga jika null (misal user mengakali HTML), set default CASH
+        if (metodePembayaran == null || metodePembayaran.isEmpty()) {
+            metodePembayaran = "CASH";
+        }
 
         // Ambil ID User dari session (Pastikan saat login, ID user disimpan di session)
         HttpSession session = request.getSession();
@@ -59,10 +65,9 @@ public class TransactionServlet extends HttpServlet {
 
             // 2. Simpan ke tabel 'transactions'
             // Gunakan RETURN_GENERATED_KEYS untuk mengambil ID transaksi yang baru saja dibuat
-            String sqlTrans = "INSERT INTO transactions (total_akhir, user_id) VALUES (?, ?)";
+            String sqlTrans = "INSERT INTO transactions (total_akhir, user_id, metode_pembayaran) VALUES (?, ?, ?) RETURNING id";
             PreparedStatement psTrans = conn.prepareStatement(sqlTrans, Statement.RETURN_GENERATED_KEYS);
             psTrans.setDouble(1, totalAkhir);
-
             // Jika userId null (misal session habis), gunakan ID default atau tangani error
             if (userId != null) {
                 psTrans.setInt(2, userId);
@@ -70,6 +75,7 @@ public class TransactionServlet extends HttpServlet {
                 // Opsional: lempar error jika wajib login
                 psTrans.setNull(2, java.sql.Types.INTEGER);
             }
+            psTrans.setString(3, metodePembayaran);
 
             psTrans.executeUpdate();
 
