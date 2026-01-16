@@ -212,7 +212,7 @@
             <div class="d-flex justify-content-between align-items-center mb-5">
                 <div>
                     <h2 class="fw-bold text-dark" style="font-family: 'Playfair Display', serif;">Dashboard Overview</h2>
-                    <p class="text-muted m-0">Halo <%= session.getAttribute("username")%>, inilah ringkasan restoran hari ini.</p>
+                    <p class="text-muted m-0">Halo <%= session.getAttribute("userName")%>, inilah ringkasan restoran hari ini.</p>
                 </div>
                 <div class="text-end text-muted small">
                     <i class="bi bi-calendar3 me-2"></i>

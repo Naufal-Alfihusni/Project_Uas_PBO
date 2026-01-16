@@ -134,7 +134,7 @@
             </div>
 
             <div class="table-container">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle rounded">
                     <thead class="table-light">
                         <tr>
                             <th>Foto</th>

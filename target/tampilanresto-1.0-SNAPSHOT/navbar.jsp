@@ -69,26 +69,6 @@
                 color: var(--primary-gold) !important;
             }
 
-            /* --- Hero Section --- */
-            .hero-section {
-                background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                    url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop');
-                background-size: cover;
-                background-position: center;
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                color: white;
-            }
-
-            .hero-title {
-                font-family: 'Playfair Display', serif;
-                font-size: clamp(2.5rem, 8vw, 4.5rem);
-                margin-bottom: 20px;
-            }
-
             /* --- Stats Section --- */
             .stats-bar {
                 background: var(--dark-bg);
@@ -140,8 +120,8 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom px-lg-5">
             <div class="container">
-                <a class="navbar-brand fw-bold fs-3" href="index.jsp">
-                    Ngopi<span class="gold-text">.In</span>
+                <a class="navbar-brand fw-bold fs-3" style="font-family: 'Montserrat', sans-serif;" href="index.jsp">
+                    Ngopi.In <span class="gold-text">Aja</span>
                 </a>
 
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

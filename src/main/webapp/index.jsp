@@ -142,7 +142,9 @@
                     <div class="col-md-6">
                         <h6 class="text-uppercase gold-text fw-bold">Tentang Kami</h6>
                         <h2 class="fw-bold mb-4">Ngopi.In aja</h2>
-                        <p class="text-muted">Kafe kopi lokal Bogor yang menyajikan biji kopi pilihan langsung dari petani terbaik Jawa Barat.</p>
+                        <p class="text-justify">Berawal dari kecintaan kami terhadap aroma tanah Bogor yang khas setelah hujan, Ngopi.In aja hadir sebagai rumah bagi para penikmat kopi sejati. Kami bukan sekedar kafe, kami adalah penghubung antara dedikasi petani lokal Jawa Barat dengan cangkir Anda.</p>
+
+                        <p class="text-justify">Setiap biji kopi yang kami sajikan dipilih secara teliti melalui proses kuras yang ketat langsung dari perkebunan terbaik di tanah Pasundan. Dengan teknik penyeduhan yang presisi, kami memastikan karakter rasa yang autentik mulai dari sentuhan buah-buahan hingga rasa cokelat yang mendalam tersaji sempurna untuk menemani setiap cerita dan produktivitas Anda.</p>
                     </div>
                     <div class="col-md-6 text-center">
                         <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=900" class="img-fluid rounded-4 shadow">

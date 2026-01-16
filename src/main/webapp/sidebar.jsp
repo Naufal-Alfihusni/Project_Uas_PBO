@@ -8,7 +8,7 @@
      style="width: 260px; height: 100vh; position: fixed; background: #0f1116; border-right: 1px solid #2d2d2d; z-index: 1000;">
 
     <div class="text-center mb-4 mt-2">
-        <h3 style="font-family: 'Playfair Display', serif; color: #c5a059; letter-spacing: 2px;">Ngopi.In</h3>
+        <h3 style="font-family: 'Playfair Display', serif; color: #c5a059; letter-spacing: 2px;">Ngopi.In Aja</h3>
         <p class="small text-uppercase opacity-50 text-white" style="font-size: 10px; letter-spacing: 3px;">Authentic Indonesian Coffee</p>
     </div>
 

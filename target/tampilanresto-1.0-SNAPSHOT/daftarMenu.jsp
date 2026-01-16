@@ -62,7 +62,7 @@
                             <span class="badge bg-secondary mb-2"><%= m.getKategori()%></span>
                             <h5 class="card-title fw-bold"><%= m.getNama()%></h5>
                             <p class="price-tag">Rp <%= String.format("%,.0f", m.getHarga())%></p>
-                            <button class="btn btn-dark w-100 rounded-pill">Pesan Sekarang</button>
+                            <a class="btn btn-dark w-100 rounded-pill" href="kasir.jsp">Pesan Sekarang</a>
                         </div>
                     </div>
                 </div>
